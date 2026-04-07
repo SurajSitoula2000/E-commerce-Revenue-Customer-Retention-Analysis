@@ -164,6 +164,12 @@ Data Analyst | Python | SQL | Power BI | PostgreSQL | MS-Excel
 
 ---
 
+
+---
+## 🔖 Tags
+#DataAnalytics #PowerBI #SQL #Python #BusinessIntelligence #DataVisualization
+---
+
 *Note: Data used in this project is synthetically generated
 using the Faker library for portfolio demonstration purposes.*
 
