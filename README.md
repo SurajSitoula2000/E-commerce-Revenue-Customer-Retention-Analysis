@@ -1,6 +1,3 @@
-import pypandoc
-
-readme = r'''<div align="center">
 
 # 🛒 E-commerce Revenue & Customer Retention Analysis
 
@@ -184,7 +181,3 @@ Data Analyst | SQL | Python | PostgreSQL | Power BI
 
 > **Note:** The dataset used in this project is synthetically generated with the Faker library for learning and portfolio demonstration purposes. The reported metrics represent the project's generated dataset and are not actual business results.
 '''
-
-output_path = "/mnt/data/README.md"
-pypandoc.convert_text(readme, "md", format="md", outputfile=output_path, extra_args=["--standalone"])
-print(f"Created: {output_path}")
