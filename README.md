@@ -1,171 +1,190 @@
-# E-commerce Revenue & Customer Retention Analysis
+import pypandoc
 
-![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat&logo=powerbi&logoColor=black) \
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat&logo=postgresql&logoColor=white) \
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white) \
-![SQL](https://img.shields.io/badge/SQL-CC2927?style=flat&logo=microsoftsqlserver&logoColor=white)
+readme = r'''<div align="center">
 
-## Problem Statement
-E-commerce businesses generate large volumes of transaction
-data but often lack visibility into revenue trends, customer
-retention patterns, and customer lifetime value. Without
-these insights, marketing budgets are wasted on the wrong
-customers and churn goes undetected until it is too late.
+# 🛒 E-commerce Revenue & Customer Retention Analysis
 
-This project builds a complete analytics pipeline to answer:
-- Which product categories and time periods drive revenue?
-- At which month do customers stop returning after their
-  first purchase?
-- Who are the high-value customers driving 80% of revenue?
+### Turning transaction data into actionable business insights
+
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Python](https://img.shields.io/badge/Python-Data_Generation-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Power BI](https://img.shields.io/badge/Power_BI-Dashboard-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
+[![SQL](https://img.shields.io/badge/SQL-Analytics-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.postgresql.org/)
+
+**An end-to-end analytics project to understand revenue performance, customer retention, and customer value through SQL, Python, and Power BI.**
+
+</div>
 
 ---
 
-## Dashboard Preview
+## 1. 🧩 Components
 
-### Page 1 — Revenue Overview
-<img width="1338" height="754" alt="image" src="https://github.com/user-attachments/assets/04d7f2c8-a1d7-42d6-8cbf-1e3ffb0f8d21" />
+The project brings together the following tools and analytical components:
 
-### Page 2 — Customer Retention (Cohort Analysis)
-<img width="1335" height="746" alt="image" src="https://github.com/user-attachments/assets/18d5c81e-076b-4cf2-990e-40da8d47b17c" />
+| Component | Technology | Purpose |
+|---|---|---|
+| Database | PostgreSQL | Store and query customer, product, and order data |
+| Data generation | Python, Faker | Generate realistic synthetic e-commerce data |
+| Data analysis | SQL | Analyze revenue, customer behavior, cohorts, and RFM segments |
+| Data visualization | Power BI | Build interactive dashboards and customer-level views |
+| Business calculations | DAX | Create KPIs and time-intelligence measures |
 
+### Key analytical techniques
 
-### Page 3 — RFM Segmentation
-<img width="1341" height="745" alt="image" src="https://github.com/user-attachments/assets/20008be5-2370-446a-82f7-f78b03520a75" />
-
-
-### Page 4 — Customer Detail (Drill-through)
-<img width="737" height="749" alt="image" src="https://github.com/user-attachments/assets/426879e7-59d1-4d28-8cf0-5940247d47c5" />
-
----
-
-## Key Insights
-
-| Insight | Finding |
-|---------|---------|
-| Total Revenue | $3.5M across 5,000 orders |
-| Top Category | Beauty ($0.98M — 27.6% of revenue) |
-| At Risk Revenue | $2.06M held by At Risk customers |
-| Champions | 15.5% of customers, $1.34M revenue |
-| Avg Order Value | $704 per transaction |
-| Retention Focus | Months 1–3 show highest drop-off |
-
-### Business Recommendations
-1. **Re-engage At Risk customers** — $2M+ in revenue at
-   risk of churn. Launch targeted email campaign immediately.
-2. **Upsell Electronics category** — lowest revenue share
-   (12.2%) despite high unit prices. Improve visibility.
-3. **Reward Champions** — 15.5% of customers drive
-   disproportionate value. Build a loyalty programme.
+- **Revenue analysis:** Category-wise revenue, average order value (AOV), and monthly trends.
+- **Cohort analysis:** Group customers by their first purchase month and track retention over time.
+- **RFM segmentation:** Classify customers using Recency, Frequency, and Monetary value.
+- **Time intelligence:** Month-to-date (MTD), year-over-year (YoY), and rolling 90-day revenue.
+- **SQL techniques:** CTEs, joins, aggregate functions, window functions (`LAG`, `NTILE`), and views.
+- **Power BI features:** KPI cards, matrix visuals, conditional formatting, slicers, cross-filtering, and drill-through.
 
 ---
 
+## 2. 🎯 Problem Statements
 
-## Tech Stack
+E-commerce businesses generate large volumes of order and customer data. However, without structured analysis, it can be difficult to understand what drives revenue and which customers are likely to stop purchasing.
 
-| Tool | Purpose |
-|------|---------|
-| PostgreSQL 18 | Database design and SQL analysis |
-| Python (Faker, psycopg2) | Synthetic data generation |
-| Power BI Desktop | Interactive dashboard |
-| DAX | Time intelligence measures (YoY, MTD, Rolling 90D) |
+This project addresses five key business questions:
+
+1. **Revenue performance:** Which product categories contribute the most to total revenue?
+2. **Sales trends:** How does revenue change month over month and year over year?
+3. **Customer retention:** After the first purchase, how consistently do customers return?
+4. **Customer value:** Who are the high-value customers contributing a significant share of revenue?
+5. **Churn risk:** Which customers are becoming inactive and may need targeted re-engagement?
+
+The objective is to convert transaction-level data into clear insights that support better marketing, sales, and customer-retention decisions.
 
 ---
 
+## 3. 💡 Solution
 
-## Project Structure
+The project follows an end-to-end data analytics workflow.
 
-```
-ecommerce-revenue-retention-analysis/
-├── sql/
-│   ├── 01_schema.sql              # Table creation
-│   ├── 02_revenue_by_category.sql # Category analysis
-│   ├── 03_monthly_trend.sql       # MoM revenue trend
-│   ├── 04_top_customers.sql       # Top 10 customers
-│   ├── 05_cohort_base.sql         # Cohort assignment
-│   ├── 06_cohort_retention.sql    # Retention % by cohort
-│   ├── 07_rfm_scores.sql          # RFM scoring with NTILE
-│   ├── 08_rfm_summary.sql         # Segment aggregation
-│   ├── 09_yoy_growth.sql          # YoY comparison
-│   ├── 10_rolling_90d.sql         # Rolling 90-day revenue
-│   └── 11_create_views.sql        # PostgreSQL views for Power BI
-├── python/
-│   └── generate_Ecommerce.py           # Synthetic data generator
-├── powerbi/
-│   └── E-commerce Revenue & Customer Retention Analysis.pbix   # Power BI report file
-├── screenshots/
-│   ├── page1_revenue.png
-│   ├── page2_retention.png
-│   ├── page3_rfm_segments.png
-│   └── page4_customer_detail.png
+### Step 1 — Database creation and data preparation
+
+- Designed relational tables for `customers`, `products`, and `orders` in PostgreSQL.
+- Used primary keys and foreign keys to define relationships.
+- Generated synthetic e-commerce records using Python and the Faker library.
+
+### Step 2 — SQL analysis
+
+Used PostgreSQL queries to extract business insights:
+
+- Calculate total revenue, total orders, and average order value.
+- Identify top-performing product categories.
+- Analyze monthly revenue and month-over-month growth using `LAG()`.
+- Identify top customers based on total spending and order activity.
+- Calculate customer cohorts and monthly retention percentages.
+- Assign RFM scores using `NTILE()` and summarize customer segments.
+- Prepare analytical views for Power BI reporting.
+
+### Step 3 — Customer cohort analysis
+
+- Identify each customer's first purchase month.
+- Assign customers to monthly cohorts.
+- Track repeat purchases in subsequent months.
+- Calculate retention percentages to identify when customer activity drops.
+
+### Step 4 — RFM customer segmentation
+
+Customers are evaluated using three metrics:
+
+| Metric | Meaning | Business use |
+|---|---|---|
+| Recency (R) | How recently a customer purchased | Identify inactive customers |
+| Frequency (F) | How often a customer purchased | Identify repeat buyers |
+| Monetary (M) | How much a customer spent | Identify high-value customers |
+
+Based on their RFM scores, customers are grouped into segments such as **Champions**, **At Risk**, and other customer-value categories.
+
+### Step 5 — Power BI dashboard
+
+The Power BI report presents the analysis through four pages:
+
+| Dashboard page | Purpose |
+|---|---|
+| Revenue Overview | Monitor revenue, orders, category performance, and trends |
+| Customer Retention | Understand cohort-wise customer retention |
+| RFM Segmentation | Compare customer segments and their revenue contribution |
+| Customer Detail | Explore individual customer information using drill-through |
+
+DAX measures support KPI calculations and time-based comparisons, including YoY growth, MTD revenue, and rolling 90-day revenue.
+
+---
+
+## 4. 📁 Folder Structure
+
+The repository currently contains the following main files and folders:
+
+```text
+E-commerce-Revenue-Customer-Retention-Analysis/
+│
+├── PowerBI/
+│   └── Power BI report and dashboard files
+│
+├── Cohort.sql
+│   └── Customer cohort and retention analysis
+│
+├── Create.sql
+│   └── Database table creation and SQL analysis queries
+│
+├── Ecommerce.ipynb
+│   └── Python notebook for project data generation
+│
+├── Rfm.sql
+│   └── RFM scoring and customer segmentation
+│
 └── README.md
+    └── Project documentation
 ```
 
 ---
 
-## How to Reproduce
+## 5. 📊 Outcomes
 
-### Step 1 — Set up PostgreSQL
-```sql
--- Run in pgAdmin Query Tool
--- Make sure you are connected to your 'ecommerce' database
-\i sql/01_schema.sql
-```
+The analysis produced the following key findings from the project's synthetic dataset:
 
-### Step 2 — Generate data
-```bash
-pip install faker psycopg2-binary
-python python/generate_Ecommerce.py
-```
+| Business metric | Result |
+|---|---:|
+| Total revenue | **$3.5M** |
+| Total orders | **5,000** |
+| Top revenue category | **Beauty — $0.98M (27.6%)** |
+| Revenue associated with At Risk customers | **$2.06M** |
+| Champion customer share | **15.5% of customers** |
+| Champion customer revenue | **$1.34M** |
+| Average order value | **$704** |
 
-### Step 3 — Create views
-```sql
-\i sql/11_create_views.sql
-```
+### Key business insights
 
-### Step 4 — Open Power BI
-- Open `powerbi/E-commerce Revenue & Customer Retention Analysis.pbix`
-- Update the PostgreSQL connection:
-  Home → Transform data → Data source settings
-  → Change localhost credentials if needed
-- Click Refresh
+- **Customer retention:** The highest customer drop-off occurs during months 1–3, highlighting the importance of early engagement after the first purchase.
+- **At Risk customers:** Approximately $2.06M in revenue is associated with the At Risk segment, making customer re-engagement a priority.
+- **High-value customers:** Champions represent 15.5% of customers and contribute approximately $1.34M in revenue.
+- **Category performance:** Beauty is the leading category, contributing 27.6% of total revenue.
+- **Growth opportunity:** Electronics contributes a relatively smaller revenue share (12.2%), indicating an opportunity to improve category visibility and promotion.
 
----
+### Recommended business actions
 
-## SQL Techniques Used
-
-- **CTEs** (Common Table Expressions) for multi-step analysis
-- **Window Functions** — LAG, NTILE, SUM OVER, ROWS BETWEEN
-- **Cohort Analysis** — DATE_TRUNC, EXTRACT for month buckets
-- **RFM Scoring** — NTILE(5) for Recency, Frequency, Monetary
-- **Time Series** — Rolling 90-day revenue with window frames
-- **Views** — PostgreSQL views for direct Power BI connection
+1. **Re-engage At Risk customers:** Run targeted email campaigns and personalized offers to encourage repeat purchases.
+2. **Reward Champions:** Introduce loyalty benefits and exclusive offers for high-value customers.
+3. **Improve early retention:** Create post-purchase engagement campaigns during the first three months.
+4. **Strengthen category performance:** Review product visibility and promotional strategies for lower-contributing categories.
 
 ---
 
+<div align="center">
 
-## Power BI Features Used
+### 👨‍💻 Project Author
 
-- KPI cards with time intelligence targets
-- Matrix visual with conditional formatting heatmap
-- Drill-through from RFM segments to customer detail
-- Cross-filtering across all visuals
-- DAX measures: YoY Growth %, Revenue MTD, Rolling 90D
-- Date Table with CALENDARAUTO() for time intelligence
-- Row-level slicer for Year and Category filtering
+**Suraj Sitoula**  
+Data Analyst | SQL | Python | PostgreSQL | Power BI
 
----
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/SurajSitoula2000/E-commerce-Revenue-Customer-Retention-Analysis)
 
-## Author
+</div>
 
-**Suraj Sitoula** \
-Data Analyst | Python | SQL | Power BI | PostgreSQL | MS-Excel
+> **Note:** The dataset used in this project is synthetically generated with the Faker library for learning and portfolio demonstration purposes. The reported metrics represent the project's generated dataset and are not actual business results.
+'''
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/suraj-sitoula/)
-
----
-
-
-*Note: Data used in this project is synthetically generated
-using the Faker library for portfolio demonstration purposes.*
-
-
+output_path = "/mnt/data/README.md"
+pypandoc.convert_text(readme, "md", format="md", outputfile=output_path, extra_args=["--standalone"])
+print(f"Created: {output_path}")
